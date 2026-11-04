@@ -1,5 +1,5 @@
 # Fireworks ScreenSaver
-Fireworks ScreenSaver
+A fireworks screensaver for Windows, with multi-monitor support and adjustable launch rate, burst size and spark life.
 
 
 
@@ -13,6 +13,10 @@ Fireworks ScreenSaver
 ## Features
 
 * Multi-Monitor support (including monitors with different scaling)
+* Live preview in the Windows Screen Saver Settings dialog
+* Settings: launch rate, burst size and particle life (stored per user in the registry)
+* About box (right-click the Settings title bar)
+* Builds for .NET Framework 4.8, .NET 8.0 and .NET 10.0 (x86 and x64)
 
 
 
@@ -40,7 +44,7 @@ See the [User's Guide](Users%20Guide.md) for downloads, runtimes, installation a
 ## Roadmap
 
 * 2026-11-04: Add: About form
-* 2026-11-04: Add: Implement the Settings form
+* 2026-11-04: Add: Implement the Settings form (launch rate, burst size, particle life)
 * 2026-11-04: Upd: Re-write the AppSettings class
 * 2026-11-04: Add: [Fireworks icon](https://www.flaticon.com/free-icon/fireworks_6286788) by [Magnific](https://www.flaticon.com/authors/magnific)
 * 2026-11-03: Add: Preview
