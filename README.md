@@ -1,0 +1,50 @@
+# Fireworks ScreenSaver
+Fireworks ScreenSaver
+
+
+
+## Author
+
+* [@remusrigo](https://github.com/RemusRigo)
+* [@remusrigo](https://sourceforge.net/u/remusrigo/profile)
+
+
+
+## Features
+
+* Multi-Monitor support (including monitors with different scaling)
+
+
+
+## User's Guide
+
+See the [User's Guide](Users%20Guide.md) for downloads, runtimes, installation and settings.
+
+
+
+## Statistics
+
+![VB.NET](https://img.shields.io/badge/Language-VB.NET-blue)
+![API](https://img.shields.io/badge/API-User32-lightblue)
+![API](https://img.shields.io/badge/API-Registry-lightblue)
+![RUNTIME](https://img.shields.io/badge/Runtime-.NET%204.8-lightblue)
+![RUNTIME](https://img.shields.io/badge/Runtime-.NET%208.0-lightblue)
+![RUNTIME](https://img.shields.io/badge/Runtime-.NET%2010.0-lightblue)
+![VS](https://img.shields.io/badge/IDE-Visual%20Studio-purple)
+<br>
+![status](https://img.shields.io/badge/status-completed-brightgreen) 
+![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/RemusRigo/FireworksSS-VB.NET/total)
+
+
+
+## Roadmap
+
+* 2026-11-04: Add: About form
+* 2026-11-04: Add: Implement the Settings form
+* 2026-11-04: Upd: Re-write the AppSettings class
+* 2026-11-04: Add: [Fireworks icon](https://www.flaticon.com/free-icon/fireworks_6286788) by [Magnific](https://www.flaticon.com/authors/magnific)
+* 2026-11-03: Add: Preview
+* 2026-11-03: Fix: Multi-monitor support logic (add bounds after border style)
+* 2026-11-03: Add: Multi-monitor support
+* 2026-11-02: Add: Rocket & Particles classes
+* 2026-11-02: Project started
