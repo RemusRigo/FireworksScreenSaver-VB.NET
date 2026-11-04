@@ -3,14 +3,14 @@ A fireworks screensaver for Windows, with multi-monitor support and adjustable l
 
 
 
-## Author
+## 👤 Author
 
 * [@remusrigo](https://github.com/RemusRigo)
 * [@remusrigo](https://sourceforge.net/u/remusrigo/profile)
 
 
 
-## Features
+## ✨ Features
 
 * Multi-Monitor support (including monitors with different scaling)
 * Live preview in the Windows Screen Saver Settings dialog
@@ -20,13 +20,13 @@ A fireworks screensaver for Windows, with multi-monitor support and adjustable l
 
 
 
-## User's Guide
+## ⚙️ User's Guide
 
 See the [User's Guide](Users%20Guide.md) for downloads, runtimes, installation and settings.
 
 
 
-## Statistics
+## 🛠️ Statistics
 
 ![VB.NET](https://img.shields.io/badge/Language-VB.NET-blue)
 ![API](https://img.shields.io/badge/API-User32-lightblue)
@@ -41,7 +41,7 @@ See the [User's Guide](Users%20Guide.md) for downloads, runtimes, installation a
 
 
 
-## Roadmap
+## 🗺️ Roadmap
 
 * 2026-11-04: Add: About form
 * 2026-11-04: Add: Implement the Settings form (launch rate, burst size, particle life)
