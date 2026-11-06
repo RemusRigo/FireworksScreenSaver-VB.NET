@@ -1,6 +1,8 @@
 # Fireworks ScreenSaver
 A fireworks screensaver for Windows, with multi-monitor support and adjustable launch rate, burst size and spark life.
 
+![Screenshot](https://github.com/RemusRigo/FireworksSS-VB.NET/blob/main/Screenshots/Screenshot.png)
+
 
 
 ## 👤 Author
@@ -43,6 +45,7 @@ See the [User's Guide](Users%20Guide.md) for downloads, runtimes, installation a
 
 ## 🗺️ Roadmap
 
+* 2026-11-06: Add: Screenshot
 * 2026-11-04: Add: About form
 * 2026-11-04: Add: Implement the Settings form (launch rate, burst size, particle life)
 * 2026-11-04: Upd: Re-write the AppSettings class
