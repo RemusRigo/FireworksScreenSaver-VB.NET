@@ -82,6 +82,10 @@ Namespace API
       End Function
 
       <DllImport("user32.dll", SetLastError:=True, CharSet:=CharSet.Auto)>
+      Public Function EnableWindow(hWnd As IntPtr, bEnable As Boolean) As Boolean
+      End Function
+
+      <DllImport("user32.dll", SetLastError:=True, CharSet:=CharSet.Auto)>
       Public Function EnumWindows(lpEnumFunc As EnumWindowsProc, lParam As IntPtr) As Boolean
       End Function
 

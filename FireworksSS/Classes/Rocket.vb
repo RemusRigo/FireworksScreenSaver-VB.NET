@@ -14,6 +14,7 @@ Public Class Rocket
    Public VY As Single
    Public RocketColor As Color
    Public Exploded As Boolean
+   Public Scale As Single = 1.0F     ' < 1 in preview mode
 
    Private ReadOnly _trail As New List(Of PointF)
    Private Const MaxTrail As Integer = 14
@@ -50,17 +51,18 @@ Public Class Rocket
    '-----------------------------------------------------------------------------------------------
    ' Draw the rocket and its trail
    Public Sub Draw(g As Graphics)
-      ' Fading trail
-      For i As Integer = 1 To _trail.Count - 1
-         Dim alpha As Integer = CInt(255.0 * i / _trail.Count)
-         Using p As New Pen(Color.FromArgb(alpha, RocketColor), 2)
+      ' Fading trail: one pen, only its colour changes per segment
+      Using p As New Pen(RocketColor, Math.Max(1.0F, 2.0F * Scale))
+         For i As Integer = 1 To _trail.Count - 1
+            p.Color = Color.FromArgb(CInt(255.0 * i / _trail.Count), RocketColor)
             g.DrawLine(p, _trail(i - 1), _trail(i))
-         End Using
-      Next
+         Next
+      End Using
 
       ' Head
+      Dim size As Single = Math.Max(2.0F, 4.0F * Scale)
       Using b As New SolidBrush(Color.White)
-         g.FillEllipse(b, X - 2, Y - 2, 4, 4)
+         g.FillEllipse(b, X - size / 2, Y - size / 2, size, size)
       End Using
    End Sub
 

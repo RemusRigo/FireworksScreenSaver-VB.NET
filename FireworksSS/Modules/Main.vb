@@ -1,8 +1,10 @@
 ﻿'--------------------------------------------------------------------------------------------------
 ' FireworksSS: Main.vb: Entry point for the application
 '    © 2026 Remus Rigo
-'       v1.0.20261103
+'       v1.0.20261110
 '--------------------------------------------------------------------------------------------------
+
+Imports FireworksSS.API
 
 Module Main
 
@@ -14,25 +16,19 @@ Module Main
       Application.EnableVisualStyles()
       Application.SetCompatibleTextRenderingDefault(False)
 
-      cfg.Load()   ' settings from HKCU\Software\Remus RIGO\FireworksSS.VB-NET
+      cfg.Load()
 
-      Dim mode As String = "/s"
-      If args.Length > 0 Then
-         mode = args(0).Trim().ToLowerInvariant()
+      Dim mode As String = If(args.Length > 0, args(0).Trim().ToLowerInvariant(), "/c")
 
-         If mode.StartsWith("/c") Then
-            mode = "/c"
-         ElseIf mode.StartsWith("/p") Then
-            mode = "/p"
-         End If
-      End If
-
-      Select Case mode
+      Select Case If(mode.Length >= 2, mode.Substring(0, 2), mode)
+         Case "/a" ' /a (legacy password change) or unknown switch: do nothing
          Case "/c"
-            ShowConfig()
+            ShowConfig(args)
          Case "/p"
-            Dim h As IntPtr = ParsePreviewHandle(args)
+            Dim h As IntPtr = ParseHandleArg(args)
             If h <> IntPtr.Zero Then RunPreview(h)
+         Case "/s"
+            RunScreenSaver()
          Case Else
             RunScreenSaver()
       End Select
@@ -45,16 +41,38 @@ Module Main
    End Sub
 
    '-----------------------------------------------------------------------------------------------
-   ' ShowConfig
-   Private Sub ShowConfig()
+   ' ShowConfig: Windows passes the Screen Saver Settings window as "/c:1234";
+   ' use it as the owner so the dialog stays on top of it. ShowDialog only disables windows of
+   ' this process, so the owner (another process) is disabled by hand while the dialog is open.
+   Private Sub ShowConfig(args As String())
+      Dim owner As IntPtr = If(args.Length > 0, ParseHandleArg(args), IntPtr.Zero)
+
       Using frm As New frmCfg()
-         frm.ShowDialog()
+         If owner <> IntPtr.Zero AndAlso IsWindow(owner) Then
+            Dim nw As New NativeWindow()
+            nw.AssignHandle(owner)
+
+            ' Re-enable the owner before the dialog is destroyed, otherwise Windows activates
+            ' some other application instead of returning focus to Screen Saver Settings
+            AddHandler frm.FormClosing, Sub() EnableWindow(owner, True)
+
+            EnableWindow(owner, False)
+            Try
+               frm.StartPosition = FormStartPosition.CenterParent
+               frm.ShowDialog(nw)
+            Finally
+               EnableWindow(owner, True)   ' safety net, e.g. if ShowDialog throws
+               nw.ReleaseHandle()
+            End Try
+         Else
+            frm.ShowDialog()
+         End If
       End Using
    End Sub
 
    '-----------------------------------------------------------------------------------------------
-   ' ParsePreviewHandle: Windows passes the handle as "/p 1234" or "/p:1234"
-   Private Function ParsePreviewHandle(args As String()) As IntPtr
+   ' ParseHandleArg: Windows passes a window handle as "/p 1234", "/p:1234", "/c:1234", ...
+   Private Function ParseHandleArg(args As String()) As IntPtr
       Dim s As String = Nothing
       Dim first As String = args(0).Trim()
       If first.Length > 2 Then

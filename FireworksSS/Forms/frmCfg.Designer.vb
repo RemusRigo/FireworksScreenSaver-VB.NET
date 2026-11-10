@@ -32,6 +32,7 @@ Partial Class frmCfg
       nudParticleLife = New NumericUpDown()
       lblParticleLifeUnit = New Label()
       btnOk = New Button()
+      btnCancel = New Button()
       CType(nudLaunchRate, ComponentModel.ISupportInitialize).BeginInit()
       CType(nudBurstSize, ComponentModel.ISupportInitialize).BeginInit()
       CType(nudParticleLife, ComponentModel.ISupportInitialize).BeginInit()
@@ -115,18 +116,33 @@ Partial Class frmCfg
       ' btnOk
       ' 
       btnOk.Anchor = AnchorStyles.Bottom Or AnchorStyles.Right
-      btnOk.Location = New Point(320, 111)
+      btnOk.DialogResult = DialogResult.OK
+      btnOk.Location = New Point(249, 110)
       btnOk.Name = "btnOk"
-      btnOk.Size = New Size(30, 23)
+      btnOk.Size = New Size(35, 23)
       btnOk.TabIndex = 9
       btnOk.Text = "&Ok"
       btnOk.UseVisualStyleBackColor = True
       ' 
+      ' btnCancel
+      ' 
+      btnCancel.Anchor = AnchorStyles.Bottom Or AnchorStyles.Right
+      btnCancel.DialogResult = DialogResult.Cancel
+      btnCancel.Location = New Point(290, 110)
+      btnCancel.Name = "btnCancel"
+      btnCancel.Size = New Size(60, 23)
+      btnCancel.TabIndex = 10
+      btnCancel.Text = "&Cancel"
+      btnCancel.UseVisualStyleBackColor = True
+      ' 
       ' frmCfg
       ' 
+      AcceptButton = btnOk
       AutoScaleDimensions = New SizeF(7F, 15F)
       AutoScaleMode = AutoScaleMode.Font
+      CancelButton = btnCancel
       ClientSize = New Size(352, 136)
+      Controls.Add(btnCancel)
       Controls.Add(btnOk)
       Controls.Add(lblParticleLifeUnit)
       Controls.Add(nudParticleLife)
@@ -137,6 +153,7 @@ Partial Class frmCfg
       Controls.Add(lblLaunchRateUnit)
       Controls.Add(nudLaunchRate)
       Controls.Add(lblLaunchRate)
+      FormBorderStyle = FormBorderStyle.FixedDialog
       MaximizeBox = False
       MinimizeBox = False
       Name = "frmCfg"
@@ -158,4 +175,5 @@ Partial Class frmCfg
    Friend WithEvents nudParticleLife As NumericUpDown
    Friend WithEvents lblParticleLifeUnit As Label
    Friend WithEvents btnOk As Button
+   Friend WithEvents btnCancel As Button
 End Class

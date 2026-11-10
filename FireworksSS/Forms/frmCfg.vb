@@ -1,14 +1,14 @@
 ﻿'--------------------------------------------------------------------------------------------------
 ' FireworksSS: frmCfg.vb
 '    © 2026 Remus Rigo
-'       v1.0.20261104
+'       v1.0.20261110
 '--------------------------------------------------------------------------------------------------
 
 Imports FireworksSS.API
 
 Public Class frmCfg
 
-   Private Const SYSMENU_ABOUT_ID As UInteger = 1000
+   Private Const SYSMENU_ABOUT_ID As Integer = &H3F0   ' low 4 bits must be 0
 
    '-----------------------------------------------------------------------------------------------
    ' create menu
@@ -24,10 +24,11 @@ Public Class frmCfg
    ' append menu to app system menu
    Protected Overrides Sub WndProc(ByRef m As Message)
       MyBase.WndProc(m)
-      If m.Msg = WM_SYSCOMMAND Then
-         If CUInt(m.WParam) = SYSMENU_ABOUT_ID Then
-            frmAbout.ShowDialog()
-         End If
+      ' Windows uses the low 4 bits of wParam internally, so mask them off before comparing
+      If m.Msg = WM_SYSCOMMAND AndAlso (m.WParam.ToInt64() And &HFFF0L) = SYSMENU_ABOUT_ID Then
+         Using f As New frmAbout()
+            f.ShowDialog(Me)
+         End Using
       End If
    End Sub
 
@@ -63,17 +64,16 @@ Public Class frmCfg
    '-----------------------------------------------------------------------------------------------
    ' frmCfg: Load
    Private Sub frmCfg_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+      Me.Text = AppData.appName & " Settings"
       LoadSettings()
    End Sub
 
    '-----------------------------------------------------------------------------------------------
    ' frmCfg: FormClosing
+   ' only save if user clicked OK, X or Esc closes the form without saving
    Private Sub frmCfg_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
-      SaveSettings()
+      If Me.DialogResult = DialogResult.OK Then SaveSettings()
    End Sub
 
-   Private Sub btnOk_Click(sender As Object, e As EventArgs) Handles btnOk.Click
-      SaveSettings()
-   End Sub
 
 End Class

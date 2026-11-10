@@ -12,7 +12,7 @@ Public Class frmSS
    Private _isPreview As Boolean = False
    Private _scale As Single = 1.0F                ' < 1 in preview so bursts fit the small window
 
-   Private mouseStart As Point = Point.Empty
+   Private mouseStart As Point? = Nothing         ' Nothing until the first MouseMove
 
    Private ReadOnly _rockets As New List(Of Rocket)
    Private ReadOnly _particles As New List(Of Particle)
@@ -56,8 +56,20 @@ Public Class frmSS
 
       ' Randomly launch a new rocket: LaunchRate per second -> chance per tick
       If _rnd.NextDouble() < cfg.LaunchRate * _timer.Interval / 1000.0 Then
-         Dim r As New Rocket(Me.ClientSize.Width, Me.ClientSize.Height, _rnd)
+         Dim r As Rocket
+         If _isPreview Then
+            r = New Rocket(Me.ClientSize.Width, Me.ClientSize.Height, _rnd)
+         Else
+            ' Full screen spans the whole virtual screen, which can include areas no monitor shows
+            ' (monitors of different heights or offset vertically). Launch inside one real monitor.
+            Dim screens As Screen() = Screen.AllScreens
+            Dim area As Rectangle = Me.RectangleToClient(screens(_rnd.Next(screens.Length)).Bounds)
+            r = New Rocket(area.Width, area.Height, _rnd)
+            r.X += area.Left    ' Rocket works in 0..width / 0..height, move it onto that monitor
+            r.Y += area.Top
+         End If
          r.VX *= _scale
+         r.Scale = _scale
          _rockets.Add(r)
       End If
 
@@ -127,6 +139,17 @@ Public Class frmSS
    End Sub
 
    '-----------------------------------------------------------------------------------------------
+   ' frmSS: DpiChanged
+   ' The full-screen window spans all monitors. With mixed scaling (e.g. 100% + 150%) Windows can
+   ' decide it moved to another monitor and WinForms would rescale/move it, leaving gaps.
+   ' Cancel that and keep covering the whole virtual screen.
+   Private Sub frmSS_DpiChanged(sender As Object, e As DpiChangedEventArgs) Handles MyBase.DpiChanged
+      If _isPreview Then Return
+      e.Cancel = True
+      Me.Bounds = SystemInformation.VirtualScreen
+   End Sub
+
+   '-----------------------------------------------------------------------------------------------
    ' frmSS: Paint
    Private Sub frmSS_Paint(sender As Object, e As PaintEventArgs) Handles MyBase.Paint
       e.Graphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
@@ -162,13 +185,14 @@ Public Class frmSS
       If _isPreview Then Return
 
       ' remember the first position
-      If mouseStart = Point.Empty Then
+      If Not mouseStart.HasValue Then
          mouseStart = e.Location
          Return
       End If
 
       ' exit if the mouse moved more than 4 pixels
-      If Math.Abs(e.X - mouseStart.X) > 4 OrElse Math.Abs(e.Y - mouseStart.Y) > 4 Then
+      Dim start As Point = mouseStart.Value
+      If Math.Abs(e.X - start.X) > 4 OrElse Math.Abs(e.Y - start.Y) > 4 Then
          Me.Close()
       End If
    End Sub

@@ -28,6 +28,11 @@
   <Content Include="Res\Fireworks.ico" />
 </ItemGroup>
 
+   <ItemGroup>
+      <EmbeddedResource Include="Res\PayPal.png"  LogicalName="PayPal.png" />
+      <EmbeddedResource Include="Res\Revolut.png" LogicalName="Revolut.png" />
+   </ItemGroup>
+
   <ItemGroup>
     <Import Include="System.Data" />
     <Import Include="System.Drawing" />

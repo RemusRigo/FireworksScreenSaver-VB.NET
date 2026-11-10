@@ -8,7 +8,7 @@ Public Module AppData
 
    Public Const appName As String = "Fireworks ScreenSaver"
    Public Const appVersion As String = "v1.0"
-   Public Const appBuild As String = "20261024"
+   Public Const appBuild As String = "20261110"
    Public Const appAuthor As String = "Remus Rigo"
    Public Const appLink As String = "© 2026 " & appAuthor
    Public Const appTitle As String = appName & " " & appVersion & "." & appBuild

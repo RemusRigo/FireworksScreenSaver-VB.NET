@@ -1,7 +1,7 @@
 # Fireworks ScreenSaver
 A fireworks screensaver for Windows, with multi-monitor support and adjustable launch rate, burst size and spark life.
 
-![Screenshot](https://github.com/RemusRigo/FireworksSS-VB.NET/blob/main/Screenshots/Screenshot.png)
+![Screenshot](https://github.com/RemusRigo/FireworksScreenSaver-VB.NET/blob/main/Screenshots/Screenshot.png)
 
 
 
@@ -39,12 +39,18 @@ See the [User's Guide](Users%20Guide.md) for downloads, runtimes, installation a
 ![VS](https://img.shields.io/badge/IDE-Visual%20Studio-purple)
 <br>
 ![status](https://img.shields.io/badge/status-completed-brightgreen) 
-![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/RemusRigo/FireworksSS-VB.NET/total)
+![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/RemusRigo/FireworksScreenSaver-VB.NET/total)
 
 
 
 ## 🗺️ Roadmap
 
+              ToDo: Random sizes for the explosions
+* 2026-11-10: Fix: Check each monitor size, so that the explosion in the virtual screen is displayed correctly
+* 2026-11-10: Upd: Change rocket look in Preview (shrink size)
+* 2026-11-10: Upd: Change logic in frmSS.vb (initial mouse position)
+* 2026-11-10: Upd: Change logic in Main.vb (check parameters)
+* 2026-11-10: Fix: Dialog logic (set/check DialogResult in btnOk_click/frmCfg_FormClosing events)
 * 2026-11-06: Add: Screenshot
 * 2026-11-04: Add: About form
 * 2026-11-04: Add: Implement the Settings form (launch rate, burst size, particle life)
